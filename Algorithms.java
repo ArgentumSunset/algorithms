@@ -1,3 +1,5 @@
+	import java.util.Arrays;
+
 	public class Algorithms {
 
 	public static void main(String[] args) {
@@ -7,10 +9,17 @@
 		for(int i = 0; i < cards.length; i++){
 			System.out.println(cards[i]);
 		}
-		System.out.println(find(3, cards));
-		System.out.println(find(5, cards));
-		System.out.println(find(10, cards));
-		System.out.println(find(9, cards));
+		System.out.println("Find1: ");  // unsorted
+		System.out.println(find1(3, cards));
+		System.out.println(find1(5, cards));
+		System.out.println(find1(10, cards));
+		System.out.println(find1(9, cards));
+		System.out.println("Find2: ");  // sorted
+		System.out.println(find2(3, cards));
+		System.out.println(find2(5, cards));
+		System.out.println(find2(10, cards));
+		System.out.println(find2(9, cards));
+
 	}
 
 	public static int findMax(int[] args) {
@@ -39,7 +48,7 @@
 		}
 	}
 
-	public static boolean find(int a, int[] cards) { // Naive version
+	public static boolean find1(int a, int[] cards) { // Naive version
 		boolean found = false;
 		for(int x : cards) {
 			if(x == a) {
@@ -47,5 +56,17 @@
 			}
 		}
 		return found;
+	}
+
+	public static boolean find2(int a, int[] cards) {
+		int[] lossyCards = Arrays.copyOf(cards, cards.length);
+		while (lossyCards.length > 1) {
+			lossyCards = cutDown(a, lossyCards);
+		}
+		return (lossyCards[0] == a) ? true : false;
+	}
+
+	public static int[] cutDown(int a, int[] arr) {
+		return (a >= arr[arr.length / 2]) ? Arrays.copyOfRange(arr, arr.length / 2, arr.length) : Arrays.copyOfRange(arr, 0, arr.length / 2);
 	}
 }
