@@ -59,11 +59,12 @@
 	}
 
 	public static boolean find2(int a, int[] cards) {
+		sortCards(cards);
 		int[] lossyCards = Arrays.copyOf(cards, cards.length);
 		while (lossyCards.length > 1) {
 			lossyCards = cutDown(a, lossyCards);
 		}
-		return (lossyCards[0] == a) ? true : false;
+		return (lossyCards[0] == a);
 	}
 
 	public static int[] cutDown(int a, int[] arr) {
